@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  currentSection = 'recipes';
+
+  onNavigate(sectionName: string) {
+  	this.currentSection = sectionName;
+  }
   
 }
