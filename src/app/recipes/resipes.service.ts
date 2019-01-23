@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 
 const URL = 'https://angular-example-31590.firebaseio.com/recipes.json';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class RecipesService {
 	recipesChanged = new Subject<Recipe[]>();
 

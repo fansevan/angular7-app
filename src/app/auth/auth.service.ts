@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 
 const localStorageTokenName = 'recipesToken';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AuthService {
 	token: string;
 
