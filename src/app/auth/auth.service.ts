@@ -31,8 +31,7 @@ export class AuthService {
 
 	logout() {
 		firebase.auth().signOut();
-		localStorage.removeItem(localStorageTokenName);
-		this.token = null;
+		this.removeToken();
 		this.router.navigate(['/']);
 	}
 
@@ -46,5 +45,10 @@ export class AuthService {
 
 	isAuthenticated() {
 		return this.token != null;
+	}
+
+	removeToken() {
+		localStorage.removeItem(localStorageTokenName);
+		this.token = null;
 	}
 }

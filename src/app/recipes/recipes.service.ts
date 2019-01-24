@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
-import { AuthService } from '../auth/auth.service';
 
 const URL = 'https://angular-example-31590.firebaseio.com/recipes.json';
 
@@ -33,8 +32,7 @@ export class RecipesService {
 	];
 
 	constructor(private shoppingListService: ShoppingListService,
-				private http: HttpClient,
-				private authService: AuthService) {}
+				private http: HttpClient) {}
 
 	getRecipe(index: number) {
 		return this.recipes[index];
@@ -69,12 +67,10 @@ export class RecipesService {
 	}
 
 	saveRecipes() {
-		const token = this.authService.getToken();
-		return this.http.put(`${URL}?auth=${token}`, this.recipes);
+		return this.http.put(URL, this.recipes);
 	}
 
 	fetchRecipes() {
-		const token = this.authService.getToken();
-		this.http.get(`${URL}?auth=${token}`).subscribe((response: Recipe[]) => this.setRecipes(response));
+		this.http.get<Recipe[]>(URL).subscribe(recipes => this.setRecipes(recipes));
 	}
 }
