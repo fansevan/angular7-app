@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as firebase from 'firebase';
 
-import { AuthService } from './auth/auth.service';
+import * as fromApp from './store/app.reducers';
+import * as AuthActions from './auth/store/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +11,15 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	constructor(private authService: AuthService) {}
+  constructor(private store: Store<fromApp.AppState>) {
+  }
 
-	ngOnInit() {
-		firebase.initializeApp({
-			apiKey: "AIzaSyC16I601n-gXJP55WXQ5qHy-wRkXiPPXzk",
-    		authDomain: "angular-example-31590.firebaseapp.com"
-		});
+  ngOnInit() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyC16I601n-gXJP55WXQ5qHy-wRkXiPPXzk',
+      authDomain: 'angular-example-31590.firebaseapp.com'
+    });
 
-		this.authService.setTokenFromLocalStorage();
-	}
+    this.store.dispatch(new AuthActions.TrySetToken());
+  }
 }
